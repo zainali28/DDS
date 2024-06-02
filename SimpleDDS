@@ -8,6 +8,11 @@ always @(posedge DAC_clk) cnt <= cnt + 16'h1;
 
 // and use it to generate the DAC signal output
 wire cnt_tap = cnt[7];     // we take one bit out of the counter (here bit 7 = the 8th bit)
-assign DAC_data = {10{cnt_tap}};   // and we duplicate it 10 times to create the 10-bits DAC value 
+assign DAC_data = {10{cnt_tap}};   // and we duplicate it 10 times to create the 10-bits DAC value
                                      // with the maximum possible amplitude
+// for sawtooth wave
+// assign DAC_data = cnt[9:0];
+
+// for triangular wave
+// assign DAC_data = cnt[10] ? ~cnt[9:0] : cnt[9:0];
 endmodule
